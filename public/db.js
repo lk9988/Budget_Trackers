@@ -7,19 +7,20 @@ request.onupgradeneeded = function (event) {
 };
 
 request.onsuccess = function (event) {
-	db.event.target.result;
+	db = event.target.result;
 	if (navigator.onLine) {
 		checkDatabase();
 	}
 };
 
 request.onerror = function (event) {
-	console.log("error" + event.target.errorCode);
+	console.log("error " + event.target.errorCode);
 };
 
 function saveRecord(record) {
 	const transaction = db.transaction(["pending"], "readwrite");
 	const store = transaction.objectStore("pending");
+
 	store.add(record);
 }
 
@@ -32,15 +33,16 @@ function checkDatabase() {
 		if (getAll.result.length > 0) {
 			fetch("/api/transaction/bulk", {
 				method: "POST",
-				body: JSON.stringify(getALL.result),
+				body: JSON.stringify(getAll.result),
 				headers: {
 					Accept: "application/json, text/plain, */*",
 					"Content-Type": "application/json",
 				},
 			})
-				.then((res) => res.json)
+				.then((response) => response.json())
 				.then(() => {
 					const transaction = db.transaction(["pending"], "readwrite");
+
 					const store = transaction.objectStore("pending");
 
 					store.clear();
