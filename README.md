@@ -40,7 +40,7 @@ Giving users a fast and easy way to track their money is important, but allowing
 ## Deployed Link <a name="link"></a>
 
 The project is deployed to Heroku and available for view :
-<>
+<https://budget-tracker-off.herokuapp.com/>
 
 ## Tech Used <a name="tech"></a>
 
